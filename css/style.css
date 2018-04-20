@@ -23,3 +23,7 @@ p#intro {
 p.product {
   margin-left: 10px;
 }
+
+img {
+  max-height: 350px;
+}
