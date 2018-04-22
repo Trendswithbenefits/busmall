@@ -10,6 +10,9 @@ var totalVotes = 0;
 var mallPic1 = document.getElementById('image1');
 var mallPic2 = document.getElementById('image2');
 var mallPic3 = document.getElementById('image3');
+// var image1element = Document.getElementsByTagName('img')[0];
+// var image2element = Document.getElementsByTagName('img')[1];
+// var image3element = Document.getElementsByTagName('img')[2];
 // var thing1 = BusMallThing.allTheThings[0];
 // var thing1 = BusMallThing.allTheThings[1];
 
@@ -43,7 +46,7 @@ function thingsGen() {
   new BusMallThing('Dog-O-Sweep','img/12_pet-sweep.jpg');
   new BusMallThing('Pie Slicer','img/13_scissors.jpg');
   new BusMallThing('Sleeping Shark','img/14_shark.jpg');
-  new BusMallThing('Kid-O-Sweep','img/15_sweep.jpg');
+  new BusMallThing('Kid-O-Sweep','img/15_sweep.png');
   new BusMallThing('Tauntaun Sack','img/16_tauntaun.jpg');
   new BusMallThing('Canned Unicorn Meat','img/17_unicorn-meat.jpg');
   new BusMallThing('USB Tentacle','img/18_usb-tentacle.jpg');
@@ -54,12 +57,6 @@ thingsGen();
 
 // Keep track of previously displayed things
 BusMallThing.lastDisplayed = [];
-
-
-// //respond to clicks
-// BusMallThing.handleclick = function (event) {
-
-// };
 
 // // List of results
 
@@ -119,30 +116,25 @@ BusMallThing.showRandomThing = function() {
   mallPic3.alt = BusMallThing.allTheThings[uniqueIndicesArray[2]].name;
 };
 
+BusMallThing.handleClick = function(event) {
+  totalVotes ++;
+
+  BusMallThing.showRandomThing();
+};
+
+mallPic1.addEventListener('click', BusMallThing.handleClick);
+mallPic2.addEventListener('click', BusMallThing.handleClick);
+mallPic3.addEventListener('click', BusMallThing.handleClick);
 
 // function showNewThings() {
 //   goat1 = allGoats[Math.floor(Math.random() * allGoats.length)];
 //   mallPic1.src =
 // }
 
-whatHappensWhenSomeoneClicks = function 
-
-
-
-mallPic1.addEventListener('click', function(event) {
-
-  if() {
-    BusMallThing.totalVotes ++;
-  mallPic1.voteTotal ++;
-  console.log(parseInt(mallPic1.voteTotal));
-});
-
-mallPic2.addEventListener('click', function(event) {
-  totalVotes ++;
-});
 
 
 //Needed in logic that monitors for 25 total clicks
 // Goat.sectionElement.removeEventListener('click', Goat.handleclick);
 
 BusMallThing.showRandomThing();
+
