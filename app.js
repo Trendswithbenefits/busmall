@@ -84,7 +84,7 @@ BusMallThing.threeUniqueNums = function() {
     if(!BusMallThing.lastDisplayed.includes(randNum) && !threeUniqueArray.includes(randNum)) {
       threeUniqueArray.push(randNum);
     } else {
-      console.log('Duplicate number!');
+      // console.log('Duplicate number!');
       //Compare to previously generated things
       //Account for array length of allTheThings
 
@@ -92,7 +92,6 @@ BusMallThing.threeUniqueNums = function() {
   }
   BusMallThing.lastDisplayed = threeUniqueArray;
   return threeUniqueArray;
-
 };
 
 
@@ -103,8 +102,8 @@ BusMallThing.showRandomThing = function() {
   BusMallThing.allTheThings[uniqueIndicesArray[0]].viewTotal++;
   BusMallThing.allTheThings[uniqueIndicesArray[1]].viewTotal++;
   BusMallThing.allTheThings[uniqueIndicesArray[2]].viewTotal++;
-  console.log(BusMallThing.allTheThings[uniqueIndicesArray[0]]);
-  console.log(BusMallThing.allTheThings[uniqueIndicesArray[0]].viewTotal);
+  // console.log(BusMallThing.allTheThings[uniqueIndicesArray[0]]);
+  // console.log(BusMallThing.allTheThings[uniqueIndicesArray[0]].viewTotal);
   //Display two unique images on the screen
   mallPic1.src = BusMallThing.allTheThings[uniqueIndicesArray[0]].url;
   mallPic1.alt = BusMallThing.allTheThings[uniqueIndicesArray[0]].name;
@@ -118,7 +117,16 @@ BusMallThing.showRandomThing = function() {
 
 BusMallThing.handleClick = function(event) {
   totalVotes ++;
+  for (var i in BusMallThing.allTheThings) {
+    if (event.target.alt === BusMallThing.allTheThings[i].name)
+      BusMallThing.allTheThings[i].voteTotal ++;
 
+  }
+  if (totalVotes === 25) {
+    mallPic1.removeEventListener('click', BusMallThing.handleClick);
+    mallPic2.removeEventListener('click', BusMallThing.handleClick);
+    mallPic3.removeEventListener('click', BusMallThing.handleClick);
+  }
   BusMallThing.showRandomThing();
 };
 
@@ -126,15 +134,6 @@ mallPic1.addEventListener('click', BusMallThing.handleClick);
 mallPic2.addEventListener('click', BusMallThing.handleClick);
 mallPic3.addEventListener('click', BusMallThing.handleClick);
 
-// function showNewThings() {
-//   goat1 = allGoats[Math.floor(Math.random() * allGoats.length)];
-//   mallPic1.src =
-// }
-
-
-
-//Needed in logic that monitors for 25 total clicks
-// Goat.sectionElement.removeEventListener('click', Goat.handleclick);
 
 BusMallThing.showRandomThing();
 
