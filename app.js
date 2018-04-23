@@ -8,14 +8,11 @@
 var votes = [];
 var totalVotes = 0;
 var titles = [];
-// var productContainer = document.getElementsByTagName('section')[0];
+var ctx = document.getElementById('stuffChart');
 var resultsButton = document.getElementById('getResults');
 var mallPic1 = document.getElementById('image1');
 var mallPic2 = document.getElementById('image2');
 var mallPic3 = document.getElementById('image3');
-// var image1element = Document.getElementsByTagName('img')[0];
-// var image2element = Document.getElementsByTagName('img')[1];
-// var image3element = Document.getElementsByTagName('img')[2];
 // var thing1 = BusMallThing.allTheThings[0];
 // var thing1 = BusMallThing.allTheThings[1];
 
@@ -83,10 +80,6 @@ BusMallThing.threeUniqueNums = function() {
     //Compare numbers to each other
     if(!BusMallThing.lastDisplayed.includes(randNum) && !threeUniqueArray.includes(randNum)) {
       threeUniqueArray.push(randNum);
-    } else {
-      // console.log('Duplicate number!');
-      //Compare to previously generated things
-      //Account for array length of allTheThings
     }
   }
   BusMallThing.lastDisplayed = threeUniqueArray;
@@ -149,93 +142,172 @@ function getChartData (){
   }
 }
 
-
-var data = {
-
-  labels: titles, // pulling from product names
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: [
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(255,99,132,1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(255,99,132,1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(255,99,132,1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(255,99,132,1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(255,99,132,1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(255,99,132,1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(255,99,132,1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(255,99,132,1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(255,99,132,1)',
-        'rgba(255, 206, 86, 1)'
-      ],
-      borderWidth: 1,
-      data: votes,
-    }
-  ]
-
-};
-
-function drawChart(){
-  new Chart(Chart, {
+var renderChart = function () {
+  Chart.defaults.global.defaultFontColor = 'white';
+  var stuffChart = new Chart( ctx, {
     type: 'bar',
-    data: data,
+    data: {
+      labels: BusMallThing.allTheThings,
+      datasets: [ {
+        label: 'Product Votes',
+        data: BusMallThing.allTheThings.itemVotes,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+        ],
+        borderWidth: 1
+      } ]
+    },
     options: {
-      responsive: false,
-      title: {
-        display: true,
-        text: 'Clicks Per Item'
+      scales: {
+        yAxes: [ {
+          ticks: {
+            beginAtZero: true,
+            stepSize: 5,
+            fontFamily: 'Arial',
+            fontSize: 9,
+          }
+        } ],
+        xAxes: [ {
+          ticks: {
+            autoSkip: false,
+            fontFamily: 'Arial',
+            fontSize: 9,
+          }
+        } ]
       },
-      legend: {
-        display: false
+      title: {
+        display: false,
       }
-      // scales: {
-      //     xAxes: [{
-      //         stacked: true
-      //     }],
-      //     // yAxes: [{
-      //     stacked: true
-      // }]
-      // }
     }
-  });
-}
+  } );
+};
+// var data = {
+
+//   labels: titles, // pulling from product names
+//   datasets: [
+//     {
+//       label: 'My First dataset',
+//       backgroundColor: [
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)'
+//       ],
+//       borderColor: [
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)'
+//       ],
+//       borderWidth: 1,
+//       data: votes,
+//     }
+//   ]
+
+// };
+
+// function drawChart(){
+//   new Chart(Chart, {
+//     type: 'bar',
+//     data: data,
+//     options: {
+//       responsive: false,
+//       title: {
+//         display: true,
+//         text: 'Clicks Per Item'
+//       },
+//       legend: {
+//         display: false
+//       }
+//       // scales: {
+//       //     xAxes: [{
+//       //         stacked: true
+//       //     }],
+//       //     // yAxes: [{
+//       //     stacked: true
+//       // }]
+//       // }
+//     }
+//   });
+// }
 
 function resultChart() {
   getChartData();
-  drawChart();
+  renderChart();
 
 }
 
