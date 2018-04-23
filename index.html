@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
-  <title>Document</title>
+  <title>BusMall</title>
 </head>
 <body>
   <nav>
@@ -16,7 +16,7 @@
 
   <script src="app.js"></script>
   
-  <section>
+  <section id="productContainer">
     <p  class="product">
     <img id="image1" src="" alt="">
     </p>
@@ -27,10 +27,19 @@
     <img id="image3" src="" alt="">
     </p>
   </section>
+
+  <section id="results">
+    <button id="getResults"> See Your Results</button>
+
+    <ul id="stats">
+     </ul>
+  </section>
   
-  <canvas>
+  <canvas id="stuffChart" height="350px" width="960px">
 
   </canvas>
 <script src="app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
 </body>
 </html>

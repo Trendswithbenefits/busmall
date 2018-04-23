@@ -4,15 +4,15 @@
 
 // JUSTIN WHITAKER
 
-//Uncomment below line if needed
-// var allTheThings = [];
+
+var votes = [];
 var totalVotes = 0;
+var titles = [];
+var ctx = document.getElementById('stuffChart');
+var resultsButton = document.getElementById('getResults');
 var mallPic1 = document.getElementById('image1');
 var mallPic2 = document.getElementById('image2');
 var mallPic3 = document.getElementById('image3');
-// var image1element = Document.getElementsByTagName('img')[0];
-// var image2element = Document.getElementsByTagName('img')[1];
-// var image3element = Document.getElementsByTagName('img')[2];
 // var thing1 = BusMallThing.allTheThings[0];
 // var thing1 = BusMallThing.allTheThings[1];
 
@@ -25,7 +25,7 @@ function BusMallThing(name, url) {
   //How many times has this been viewed?
   this.viewTotal = 0,
   //How many times has this been voted for?
-  this.voteTotal = 0,
+  this.itemVotes = 0,
   BusMallThing.allTheThings.push(this);
 }
 
@@ -58,21 +58,18 @@ thingsGen();
 // Keep track of previously displayed things
 BusMallThing.lastDisplayed = [];
 
-// // List of results
+// if (!localStorage.busmall) {
+//   for (var i = 0; i < names.length; i++) {
+//     new Product(names[i]);
+//   }
+// }
+// else {
+//   allProducts = JSON.parse(localStorage.busmall);
+// }
 
-// BusMallThing.showResults = function() {
-
-// };
-
-// // Data for chart
-// BusMallThing.updateVotes = function() {
-
-// };
-
-// //Create chart with Chart.JS
-// BusMallThing.renderChart = function() {
-
-// };
+function rand() {
+  return Math.floor(Math.random() * names.length);
+}
 
 // Select a random image to be displayed
 BusMallThing.threeUniqueNums = function() {
@@ -83,11 +80,6 @@ BusMallThing.threeUniqueNums = function() {
     //Compare numbers to each other
     if(!BusMallThing.lastDisplayed.includes(randNum) && !threeUniqueArray.includes(randNum)) {
       threeUniqueArray.push(randNum);
-    } else {
-      // console.log('Duplicate number!');
-      //Compare to previously generated things
-      //Account for array length of allTheThings
-
     }
   }
   BusMallThing.lastDisplayed = threeUniqueArray;
@@ -119,16 +111,208 @@ BusMallThing.handleClick = function(event) {
   totalVotes ++;
   for (var i in BusMallThing.allTheThings) {
     if (event.target.alt === BusMallThing.allTheThings[i].name)
-      BusMallThing.allTheThings[i].voteTotal ++;
+      BusMallThing.allTheThings[i].itemVotes ++;
+
+
 
   }
   if (totalVotes === 25) {
     mallPic1.removeEventListener('click', BusMallThing.handleClick);
     mallPic2.removeEventListener('click', BusMallThing.handleClick);
     mallPic3.removeEventListener('click', BusMallThing.handleClick);
+    makeButton();
   }
   BusMallThing.showRandomThing();
+
+  localStorage.setItem('busmall', JSON.stringify(BusMallThing.allTheThings));
+  BusMallThing.showRandomThing();
 };
+
+function makeButton() {
+  resultsButton.style.display = 'block';
+}
+
+
+function getChartData (){
+  for ( var i = 0; i < BusMallThing.allTheThings.length; i++) {
+    titles[i] = BusMallThing.allTheThings[i].name;
+    votes[i] = BusMallThing.allTheThings[i].itemVotes;
+    titles.push(i);
+    votes.push(i);
+  }
+}
+
+var renderChart = function () {
+  Chart.defaults.global.defaultFontColor = 'white';
+  var stuffChart = new Chart( ctx, {
+    type: 'bar',
+    data: {
+      labels: BusMallThing.allTheThings,
+      datasets: [ {
+        label: 'Product Votes',
+        data: BusMallThing.allTheThings.itemVotes,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+        ],
+        borderWidth: 1
+      } ]
+    },
+    options: {
+      scales: {
+        yAxes: [ {
+          ticks: {
+            beginAtZero: true,
+            stepSize: 5,
+            fontFamily: 'Arial',
+            fontSize: 9,
+          }
+        } ],
+        xAxes: [ {
+          ticks: {
+            autoSkip: false,
+            fontFamily: 'Arial',
+            fontSize: 9,
+          }
+        } ]
+      },
+      title: {
+        display: false,
+      }
+    }
+  } );
+};
+// var data = {
+
+//   labels: titles, // pulling from product names
+//   datasets: [
+//     {
+//       label: 'My First dataset',
+//       backgroundColor: [
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)',
+//         'rgba(54, 162, 235, 0.2)'
+//       ],
+//       borderColor: [
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)',
+//         'rgba(255,99,132,1)',
+//         'rgba(255, 206, 86, 1)'
+//       ],
+//       borderWidth: 1,
+//       data: votes,
+//     }
+//   ]
+
+// };
+
+// function drawChart(){
+//   new Chart(Chart, {
+//     type: 'bar',
+//     data: data,
+//     options: {
+//       responsive: false,
+//       title: {
+//         display: true,
+//         text: 'Clicks Per Item'
+//       },
+//       legend: {
+//         display: false
+//       }
+//       // scales: {
+//       //     xAxes: [{
+//       //         stacked: true
+//       //     }],
+//       //     // yAxes: [{
+//       //     stacked: true
+//       // }]
+//       // }
+//     }
+//   });
+// }
+
+function resultChart() {
+  getChartData();
+  renderChart();
+
+}
+
+
+
 
 mallPic1.addEventListener('click', BusMallThing.handleClick);
 mallPic2.addEventListener('click', BusMallThing.handleClick);
@@ -136,4 +320,5 @@ mallPic3.addEventListener('click', BusMallThing.handleClick);
 
 
 BusMallThing.showRandomThing();
+resultsButton.addEventListener('click', resultChart);
 
